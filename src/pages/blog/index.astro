@@ -1,7 +1,5 @@
 ---
 import BaseHead from "../../components/BaseHead.astro";
-import Header from "../../components/Header.astro";
-import Footer from "../../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import { getCollection } from "astro:content";
 import FormattedDate from "../../components/FormattedDate.astro";
@@ -9,85 +7,80 @@ import FormattedDate from "../../components/FormattedDate.astro";
 const posts = (await getCollection("blog")).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
-
-const postsByYear = posts.reduce((acc, post) => {
-    const year = post.data.pubDate.getFullYear();
-    const month = post.data.pubDate.toLocaleString("default", {
-        month: "long",
-    });
-    if (!acc[year]) {
-        acc[year] = {};
-    }
-    if (!acc[year][month]) {
-        acc[year][month] = [];
-    }
-    acc[year][month].push(post);
-    return acc;
-}, {});
 ---
 
 <!doctype html>
-<html lang="en" class="h-full">
+<html lang="en">
     <head>
         <BaseHead
-            title={`Blog | ${SITE_TITLE}`}
+            title={`Posts | ${SITE_TITLE}`}
             description={SITE_DESCRIPTION}
         />
     </head>
-    <body class="h-full bg-gray-50 dark:bg-stone-950 flex flex-col">
-        <Header />
-        <main class="w-full max-w-[700px] mx-auto px-4 py-12">
-            <h1
-                class="text-4xl font-bold text-gray-700 dark:text-gray-300 mb-4 text-left"
-            >
-                Blog
-            </h1>
-            <p class="text-lg text-gray-600 dark:text-gray-400 mb-8">
-                Most of my writing is about programming, technology, books, and
-                math. Occasionally, there may be posts that do not fit into any
-                one of these categories. There is no general theme to this blog,
-                and that is by design :^).
-            </p>
-
-            {
-                Object.keys(postsByYear)
-                    .sort((a, b) => b - a)
-                    .map((year) => (
-                        <section class="mb-8">
-                            <h2 class="text-2xl font-bold text-gray-700 dark:text-gray-300 mb-4">
-                                {year}
-                            </h2>
-                            {Object.keys(postsByYear[year]).map((month) => (
-                                <div class="mb-6">
-                                    <ul class="list-decimal list-inside p-0">
-                                        {postsByYear[year][month].map(
-                                            (post) => (
-                                                <li class="mb-2">
-                                                    <a
-                                                        href={`/blog/${post.id}/`}
-                                                        class="text-lg text-blue-500 dark:text-blue-200 hover:underline hover: decoration-blue-400 underline-offset-4"
-                                                    >
-                                                        {post.data.title}
-                                                    </a>
-                                                    <span class="text-sm text-gray-500 dark:text-gray-400 ml-2">
-                                                        -{" "}
-                                                        <FormattedDate
-                                                            date={
-                                                                post.data
-                                                                    .pubDate
-                                                            }
-                                                        />
-                                                    </span>
-                                                </li>
-                                            ),
-                                        )}
-                                    </ul>
-                                </div>
-                            ))}
-                        </section>
+    <body>
+        <main>
+            <a href="/" class="back">&larr; Rajesh Jha</a>
+            <h1>Posts</h1>
+            <ul>
+                {
+                    posts.map((post) => (
+                        <li>
+                            <a href={`/blog/${post.id}/`}>
+                                {post.data.title}
+                            </a>
+                            <span class="date">
+                                <FormattedDate date={post.data.pubDate} />
+                            </span>
+                        </li>
                     ))
-            }
+                }
+            </ul>
         </main>
-        <Footer />
+
+        <style>
+            body {
+                font-family: Georgia, "Times New Roman", serif;
+                color: #111;
+                background: #fff;
+                max-width: 46em;
+                margin: 0 auto;
+                padding: 4em 1.2em;
+                line-height: 1.6;
+                font-size: 20px;
+            }
+            .back {
+                color: #555;
+                text-decoration: none;
+                font-size: 0.9em;
+            }
+            h1 {
+                font-size: 1.4em;
+                margin: 1em 0 1em 0;
+            }
+            ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            li {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+                gap: 1em;
+                padding: 0.6em 0;
+                border-bottom: 1px solid #ddd;
+            }
+            li a {
+                color: #111;
+                font-size: 1.15em;
+                text-decoration: underline;
+                text-underline-offset: 0.3em;
+            }
+            .date {
+                color: #777;
+                font-size: 0.85em;
+                white-space: nowrap;
+            }
+        </style>
     </body>
 </html>

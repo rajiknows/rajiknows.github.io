@@ -1,205 +1,56 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
-import Folder from "../components/Folder.astro";
-import Projects from "../components/Projects.astro";
-import { software } from "../data/software.ts";
-import SoftwareCard from "../components/SoftwareCard.astro";
 ---
 
 <!doctype html>
-<html lang="en" class="h-full">
+<html lang="en">
     <head>
         <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
     </head>
-    <body class="h-full bg-gray-50 dark:bg-stone-950 flex flex-col">
-        <Header />
-
-        <main class="w-full max-w-[700px] mx-auto px-4 py-12">
-            <h1
-                class="text-4xl font-bold text-gray-700 dark:text-gray-300 mb-4 text-left"
-            >
-                Rajesh Jha
-            </h1>
-            <h2 class="text-xl text-gray-600 dark:text-gray-400 text-left">
-				Backend & Systems programmer | All about the ART
-            </h2>
-                    <div class="prose dark:prose-invert mt-8 text-left">
-                        <p class="text-lg text-gray-700 dark:text-gray-300 mb-10">
-                        I love working on tools and softwares which deal with low-level systems.
-                    This website archives my
-                    side-projects and thoughts.
-                        </p>
-                    </div>
-
-            <div class="flex space-x-6" id="portfolio-nav">
-                <a
-                    href="#side-projects"
-                    class="text-base text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
-                    >Projects</a
-                >
-                <a
-                    href="#work"
-                    class="text-base text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
-                    >Work-exp</a
-                >
-            </div>
-
-            <div id="portfolio-content" class="mt-8">
-                <Projects />
-                <div id="work-content" class="hidden">
-                    <h3
-                        class="text-2xl font-bold text-gray-700 dark:text-gray-300 mb-4"
-                    >
-                        Work
-                    </h3>
-                    <div class="mb-10">
-                        <div class="flex justify-between items-baseline">
-                            <div class="flex gap-x-4">
-                                <img
-                                src="public/stealth_logo.jpeg"
-                                alt="systemsWay"
-                                width="60px"
-                                height="10px"
-                                class="rounded-lg"
-                                />
-                                <div>
-                                    <h4
-                                    class="text-lg font-medium text-gray-800 dark:text-gray-200"
-                                    >
-                                        Software Engineer
-                                    </h4>
-                                    <span
-                                    class="text-sm text-gray-500 dark:text-gray-400"
-                                    >SystemsWay</span
-                                    >
-                                </div>
-                            </div>
-                            <span
-                            class="text-sm text-gray-500 dark:text-gray-400"
-                            >Sep-Nov 2025</span
-                            >
-                        </div>
-                        <p
-                        class="text-base text-gray-700 dark:text-gray-300 mt-2 font-semibold"
-                        >
-                            Tech: <span class="font-normal"
-                            >Golang, Python. Pulumi, Gcp</span
-                            >
-                        </p>
-                        <p
-                        class="text-base text-gray-700 dark:text-gray-300 mt-1"
-                        >
-                            Developed Go backend services and infrastructure for scalable cloud applications. <em
-                            class="italic">Crankshaft</em
-                            >, my work includes:
-                        </p>
-                        <ul
-                        class="list-disc list-inside text-base text-gray-700 dark:text-gray-300 mt-2 space-y-1"
-                        >
-                            <li>
-                                debugging the observablity layer
-                            </li>
-                            <li>
-                            adding features to deployment configurations
-                            </li>
-                            <li>
-                                                        adding failure-safety feats into the system
-                                                        </li>
-                        </ul>
-                    </div>
-                    <div class="mb-6">
-                        <div class="flex justify-between items-baseline">
-                            <div class="flex gap-x-4">
-                                <img
-                                src="/google_logo.jpg"
-                                alt="google logo"
-                                width="60px"
-                                height="10px"
-                                class="rounded-lg"
-                                />
-                                <div>
-                                    <h4
-                                    class="text-lg font-medium text-gray-800 dark:text-gray-200"
-                                    >
-                                        GSoC Mentee
-                                    </h4>
-                                    <span
-                                        class="text-sm text-gray-500 dark:text-gray-400"
-                                        >St. Jude Research</span
-                                    >
-                                </div>
-                            </div>
-                            <span
-                                class="text-sm text-gray-500 dark:text-gray-400"
-                                >May-Sep 2025</span
-                            >
-                        </div>
-                        <p
-                            class="text-base text-gray-700 dark:text-gray-300 mt-2 font-semibold"
-                        >
-                            Tools: <span class="font-normal"
-                                >Rust, grpc, tui, channels.</span
-                            >
-                        </p>
-                        <p
-                            class="text-base text-gray-700 dark:text-gray-300 mt-1"
-                        >
-                            Developing a real time monitoring solution for <em
-                                class="italic">Crankshaft</em
-                            >, my work includes:
-                        </p>
-                        <ul
-                            class="list-disc list-inside text-base text-gray-700 dark:text-gray-300 mt-2 space-y-1"
-                        >
-                            <li>
-                                developed a orchestration layer using tokio and
-                                broadcast channels
-                            </li>
-                            <li>developed sweet macros</li>
-                        </ul>
-                    </div>
-                </div>
-                <div id="software-content" class="hidden">
-                    <h3
-                        class="text-2xl font-bold text-gray-700 dark:text-gray-300 mb-4"
-                    >
-                        Software
-                    </h3>
-                    <ul class="list-decimal list-inside p-0">
-                        {software.map((item) => (
-                            <SoftwareCard name={item.name} link={item.link} description={item.description} />
-                        ))}
-                    </ul>
-                </div>
-            </div>
+    <body>
+        <main>
+            <h1>Rajesh Jha</h1>
+            <p>
+                Backend and systems programmer. I work on low-level tools,
+                distributed systems and infrastructure — mostly in Rust and
+                Go.
+            </p>
+            <nav>
+                <a href="/blog">Posts</a>
+                <a href="/contact">Contact me</a>
+            </nav>
         </main>
 
-        <script>
-            const navLinks = document.querySelectorAll("div#portfolio-nav a");
-            const contentSections = document.querySelectorAll(
-                "#portfolio-content > div",
-            );
-
-            navLinks.forEach((link) => {
-                link.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    const targetId =
-                        link.getAttribute("href").substring(1) + "-content";
-
-                    contentSections.forEach((section) => {
-                        if (section.id === targetId) {
-                            section.classList.remove("hidden");
-                        } else {
-                            section.classList.add("hidden");
-                        }
-                    });
-                });
-            });
-        </script>
-
-        <Footer />
+        <style>
+            body {
+                font-family: Georgia, "Times New Roman", serif;
+                color: #111;
+                background: #fff;
+                max-width: 46em;
+                margin: 0 auto;
+                padding: 4em 1.2em;
+                line-height: 1.6;
+                font-size: 20px;
+            }
+            h1 {
+                font-size: 1.6em;
+                margin: 0 0 0.5em 0;
+            }
+            p {
+                margin: 0 0 1.5em 0;
+            }
+            nav {
+                display: flex;
+                gap: 1.5em;
+            }
+            nav a {
+                color: #111;
+                text-decoration: underline;
+            }
+            nav a:hover {
+                color: #555;
+            }
+        </style>
     </body>
 </html>
