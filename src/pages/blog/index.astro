@@ -38,21 +38,6 @@ const posts = (await getCollection("blog")).sort(
         </main>
 
         <style>
-            body {
-                font-family: Georgia, "Times New Roman", serif;
-                color: #111;
-                background: #fff;
-                max-width: 46em;
-                margin: 0 auto;
-                padding: 4em 1.2em;
-                line-height: 1.6;
-                font-size: 20px;
-            }
-            .back {
-                color: #555;
-                text-decoration: none;
-                font-size: 0.9em;
-            }
             h1 {
                 font-size: 1.4em;
                 margin: 1em 0 1em 0;
@@ -68,18 +53,17 @@ const posts = (await getCollection("blog")).sort(
                 align-items: baseline;
                 gap: 1em;
                 padding: 0.6em 0;
-                border-bottom: 1px solid #ddd;
+                border-bottom: 1px solid #e5e0d8;
             }
             li a {
-                color: #111;
                 font-size: 1.15em;
-                text-decoration: underline;
                 text-underline-offset: 0.3em;
             }
             .date {
                 color: #777;
                 font-size: 0.85em;
                 white-space: nowrap;
+                border-bottom: none;
             }
         </style>
     </body>

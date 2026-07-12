@@ -41,28 +41,13 @@ const rendered = await Promise.all(
         </main>
 
         <style>
-            body {
-                font-family: Georgia, "Times New Roman", serif;
-                color: #111;
-                background: #fff;
-                max-width: 46em;
-                margin: 0 auto;
-                padding: 4em 1.2em;
-                line-height: 1.6;
-                font-size: 20px;
-            }
-            .back {
-                color: #555;
-                text-decoration: none;
-                font-size: 0.9em;
-            }
             h1 {
                 font-size: 1.4em;
                 margin: 1em 0 1em 0;
             }
             .entry {
                 padding: 1.6em 0;
-                border-bottom: 1px solid #ddd;
+                border-bottom: 1px solid #e5e0d8;
             }
             .entry:last-child {
                 border-bottom: none;
@@ -75,16 +60,13 @@ const rendered = await Promise.all(
             .content :global(p) {
                 margin: 0 0 1em 0;
             }
-            .content :global(a) {
-                color: #111;
-            }
             .content :global(ul),
             .content :global(ol) {
                 margin: 0 0 1em 0;
                 padding-left: 1.3em;
             }
             .content :global(pre) {
-                background: #f2f2f2;
+                background: var(--code-background);
                 padding: 1em;
                 margin: 0 0 1em 0;
                 max-width: 100%;
@@ -92,9 +74,9 @@ const rendered = await Promise.all(
                 word-break: break-word;
             }
             .content :global(code) {
-                font-family: Menlo, Consolas, monospace;
+                font-family: "JetBrains Mono", Menlo, Consolas, monospace;
                 font-size: 0.85em;
-                background: #f2f2f2;
+                background: var(--code-background);
                 padding: 0.1em 0.3em;
             }
             .content :global(pre code) {

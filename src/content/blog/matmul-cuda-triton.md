@@ -17,7 +17,7 @@ So here we go!
 blah blah blah !
 
 ## understanding Matmul
-Matmul is the matrix multiplication operation that we will be working with in this series. It is a fundamental operation in linear algebra and is used in many machine learning algorithms.
+Matmul is the matrix multiplication operation<span class="sidenote-ref"></span><span class="sidenote">Given A (m×n) and B (n×p), matmul produces C (m×p) where each element is a dot product of a row of A and a column of B.</span> that we will be working with in this series. It is a fundamental operation in linear algebra and is used in many machine learning algorithms.
 
 ## Matmul on the GPU
-Matmul on the GPU can be accelerated using CUDA and Triton. In this post, we will focus on using Triton to implement Matmul on the GPU. I will also show you the equivalent CUDA code for comparison.
+Matmul on the GPU can be accelerated using CUDA and Triton<span class="sidenote-ref"></span><span class="sidenote">CUDA gives you low-level control over threads and memory; Triton is a higher-level language that compiles down to efficient GPU kernels without hand-managing most of that.</span>. In this post, we will focus on using Triton to implement Matmul on the GPU. I will also show you the equivalent CUDA code for comparison.

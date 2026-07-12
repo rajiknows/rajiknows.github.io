@@ -34,20 +34,19 @@ const { title, description, pubDate, updatedDate } = post.data;
         </main>
 
         <style>
+            :root {
+                --notes-width: 14rem;
+                --note-gap: 3rem;
+            }
             body {
-                font-family: Georgia, "Times New Roman", serif;
-                color: #111;
-                background: #fff;
-                max-width: 40em;
-                margin: 0 auto;
+                max-width: calc(
+                    var(--width) + var(--note-gap) + var(--notes-width)
+                );
+                margin-left: max(2em, 6vw);
+                margin-right: auto;
                 padding: 4em 1.2em 6em 1.2em;
                 line-height: 1.65;
                 font-size: 21px;
-            }
-            .back {
-                color: #555;
-                text-decoration: none;
-                font-size: 0.9em;
             }
             h1 {
                 font-size: 1.7em;
@@ -59,16 +58,20 @@ const { title, description, pubDate, updatedDate } = post.data;
                 font-size: 0.85em;
                 margin-bottom: 2em;
             }
+            .content {
+                position: relative;
+                padding-right: calc(var(--note-gap) + var(--notes-width));
+                counter-reset: sidenote-counter;
+            }
             .content :global(p) {
                 margin: 0 0 1.3em 0;
+                text-align: justify;
+                text-justify: inter-word;
             }
             .content :global(h2),
             .content :global(h3) {
                 margin: 1.6em 0 0.6em 0;
                 line-height: 1.3;
-            }
-            .content :global(a) {
-                color: #111;
             }
             .content :global(ul),
             .content :global(ol) {
@@ -82,13 +85,13 @@ const { title, description, pubDate, updatedDate } = post.data;
                 color: #444;
             }
             .content :global(code) {
-                font-family: Menlo, Consolas, monospace;
-                font-size: 0.85em;
-                background: #f2f2f2;
+                font-family: "JetBrains Mono", Menlo, Consolas, monospace;
+                font-size: 0.8em;
+                background: var(--code-background);
                 padding: 0.1em 0.3em;
             }
             .content :global(pre) {
-                background: #f2f2f2;
+                background: var(--code-background);
                 padding: 1em;
                 margin: 0 0 1.3em 0;
                 max-width: 100%;
@@ -101,6 +104,48 @@ const { title, description, pubDate, updatedDate } = post.data;
             }
             .content :global(img) {
                 max-width: 100%;
+            }
+
+            /* Sidenotes: write them in a post as
+               <span class="sidenote-ref"></span><span class="sidenote">text</span>
+               right after the word they annotate. */
+            .content :global(.sidenote-ref)::before {
+                counter-increment: sidenote-counter;
+                content: counter(sidenote-counter);
+                font-size: 0.7em;
+                vertical-align: super;
+                color: var(--accent);
+                margin: 0 2px;
+            }
+            .content :global(.sidenote) {
+                float: right;
+                clear: right;
+                width: var(--notes-width);
+                margin-right: calc(-1 * (var(--notes-width) + var(--note-gap)));
+                margin-left: 1rem;
+                margin-bottom: 1rem;
+                font-size: 0.9em;
+                line-height: 1.5;
+                color: #666;
+                text-align: left;
+            }
+            .content :global(.sidenote)::before {
+                content: counter(sidenote-counter) ". ";
+                color: var(--accent);
+                font-weight: 600;
+            }
+
+            @media (max-width: 960px) {
+                body {
+                    max-width: var(--width);
+                    margin-left: auto;
+                }
+                .content {
+                    padding-right: 0;
+                }
+                .content :global(.sidenote) {
+                    display: none;
+                }
             }
         </style>
     </body>

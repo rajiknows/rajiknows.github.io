@@ -1,0 +1,56 @@
+:root {
+    --width: 46em;
+    --font-main: "EB Garamond", Georgia, "Times New Roman", serif;
+    --background: #fffef9;
+    --text-color: #232333;
+    --accent: #6a3fb5;
+    --code-background: #f2f2f2;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--text-color);
+    background: var(--background);
+    max-width: var(--width);
+    margin: 0 auto;
+    padding: 4em 1.2em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-main);
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+a {
+    color: var(--text-color);
+    text-decoration: none;
+    border-bottom: 2px solid var(--accent);
+}
+
+a:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
+a.back {
+    border-bottom: none;
+    color: #666;
+    font-size: 0.9em;
+}
+
+a.back:hover {
+    background: none;
+    color: #111;
+}
