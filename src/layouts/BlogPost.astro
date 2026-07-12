@@ -143,8 +143,30 @@ const { title, description, pubDate, updatedDate } = post.data;
                 .content {
                     padding-right: 0;
                 }
+                /* No room for a margin column here — turn sidenotes into
+                   inline footnote blocks instead of hiding them. */
                 .content :global(.sidenote) {
-                    display: none;
+                    float: none;
+                    clear: none;
+                    display: block;
+                    width: auto;
+                    margin: 0.6em 0 1.2em 0;
+                    padding: 0.6em 0.9em;
+                    background: var(--code-background);
+                    border-left: 3px solid var(--accent);
+                }
+            }
+
+            @media (max-width: 600px) {
+                body.post {
+                    font-size: 17px;
+                    padding: 2em 1em 3em 1em;
+                }
+                h1 {
+                    font-size: 1.5em;
+                }
+                .content :global(p) {
+                    text-align: left;
                 }
             }
         </style>

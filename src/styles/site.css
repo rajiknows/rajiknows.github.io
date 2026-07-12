@@ -54,3 +54,10 @@ a.back:hover {
     background: none;
     color: #111;
 }
+
+@media (max-width: 600px) {
+    body {
+        font-size: 17px;
+        padding: 2em 1em;
+    }
+}
