@@ -14,7 +14,7 @@ const { title, description, pubDate, updatedDate } = post.data;
     <head>
         <BaseHead title={title} description={description} />
     </head>
-    <body>
+    <body class="post">
         <main>
             <a href="/blog" class="back">&larr; Posts</a>
             <article>
@@ -38,7 +38,7 @@ const { title, description, pubDate, updatedDate } = post.data;
                 --notes-width: 14rem;
                 --note-gap: 3rem;
             }
-            body {
+            body.post {
                 max-width: calc(
                     var(--width) + var(--note-gap) + var(--notes-width)
                 );
@@ -136,7 +136,7 @@ const { title, description, pubDate, updatedDate } = post.data;
             }
 
             @media (max-width: 960px) {
-                body {
+                body.post {
                     max-width: var(--width);
                     margin-left: auto;
                 }
