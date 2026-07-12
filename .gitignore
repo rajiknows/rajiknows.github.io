@@ -1,5 +1,8 @@
 # build output
 dist/
+
+# drafts, not published
+drafts/
 # generated types
 .astro/
 
