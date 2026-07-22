@@ -1,0 +1,70 @@
+{
+  "name": "gruvbox-light-medium",
+  "type": "light",
+  "colors": {
+    "editor.background": "#fbf1c7",
+    "editor.foreground": "#3c3836"
+  },
+  "tokenColors": [
+    {
+      "scope": ["comment", "punctuation.definition.comment", "string.comment"],
+      "settings": { "foreground": "#928374", "fontStyle": "italic" }
+    },
+    {
+      "scope": ["string", "string.quoted", "constant.other.symbol", "meta.string"],
+      "settings": { "foreground": "#79740e" }
+    },
+    {
+      "scope": ["constant.character.escape", "constant.other.placeholder"],
+      "settings": { "foreground": "#af3a03" }
+    },
+    {
+      "scope": ["constant.numeric", "constant.language", "constant.character", "keyword.other.unit"],
+      "settings": { "foreground": "#8f3f71" }
+    },
+    {
+      "scope": ["keyword", "storage.type", "storage.modifier", "keyword.control", "keyword.operator.new"],
+      "settings": { "foreground": "#9d0006" }
+    },
+    {
+      "scope": ["keyword.operator", "punctuation", "meta.brace"],
+      "settings": { "foreground": "#427b58" }
+    },
+    {
+      "scope": ["entity.name.function", "support.function", "meta.function-call.generic", "meta.function-call"],
+      "settings": { "foreground": "#427b58" }
+    },
+    {
+      "scope": ["entity.name.type", "entity.name.class", "entity.name.namespace", "support.type", "support.class", "storage.type.built-in"],
+      "settings": { "foreground": "#b57614" }
+    },
+    {
+      "scope": ["variable.parameter", "variable.other", "meta.definition.variable"],
+      "settings": { "foreground": "#076678" }
+    },
+    {
+      "scope": ["entity.name.tag", "punctuation.definition.tag"],
+      "settings": { "foreground": "#9d0006" }
+    },
+    {
+      "scope": ["entity.other.attribute-name", "support.type.property-name"],
+      "settings": { "foreground": "#b57614" }
+    },
+    {
+      "scope": ["variable.language", "support.variable"],
+      "settings": { "foreground": "#af3a03" }
+    },
+    {
+      "scope": ["markup.heading", "entity.name.section"],
+      "settings": { "foreground": "#79740e", "fontStyle": "bold" }
+    },
+    {
+      "scope": ["markup.bold"],
+      "settings": { "fontStyle": "bold" }
+    },
+    {
+      "scope": ["markup.italic"],
+      "settings": { "fontStyle": "italic" }
+    }
+  ]
+}

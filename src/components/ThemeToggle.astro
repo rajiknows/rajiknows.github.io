@@ -1,0 +1,105 @@
+---
+// Floating theme picker, rendered on every page (top-right).
+// Keys must stay in sync with the [data-theme] blocks in site.css and the
+// shiki `themes` map in astro.config.mjs.
+const THEMES = [
+    { key: "gruvbox-light", label: "Gruvbox Light", bg: "#fbf1c7", accent: "#b16286" },
+    { key: "gruvbox-dark", label: "Gruvbox Dark", bg: "#282828", accent: "#d3869b" },
+    { key: "catppuccin", label: "Catppuccin", bg: "#1e1e2e", accent: "#cba6f7" },
+    { key: "tokyonight", label: "Tokyo Night", bg: "#1a1b26", accent: "#bb9af7" },
+    { key: "kanagawa", label: "Kanagawa", bg: "#1f1f28", accent: "#957fb8" },
+];
+---
+
+<div class="theme-picker">
+    <button
+        class="theme-picker__button"
+        type="button"
+        aria-label="Choose theme"
+        aria-haspopup="true"
+        aria-expanded="false"
+        title="Choose theme"
+    >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="13.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"></circle>
+            <circle cx="17.5" cy="10.5" r="1.5" fill="currentColor" stroke="none"></circle>
+            <circle cx="8.5" cy="7.5" r="1.5" fill="currentColor" stroke="none"></circle>
+            <circle cx="6.5" cy="12.5" r="1.5" fill="currentColor" stroke="none"></circle>
+            <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125 0-.926.746-1.688 1.688-1.688H15.5c3.582 0 6.5-2.918 6.5-6.5C22 5.816 17.5 2 12 2z"></path>
+        </svg>
+    </button>
+
+    <ul class="theme-picker__menu" role="menu" hidden>
+        {
+            THEMES.map((t) => (
+                <li role="none">
+                    <button
+                        class="theme-picker__option"
+                        type="button"
+                        role="menuitemradio"
+                        aria-checked="false"
+                        data-theme-key={t.key}
+                    >
+                        <span
+                            class="theme-picker__swatch"
+                            style={`background: linear-gradient(135deg, ${t.bg} 50%, ${t.accent} 50%)`}
+                        />
+                        {t.label}
+                    </button>
+                </li>
+            ))
+        }
+    </ul>
+</div>
+
+<script is:inline>
+    (() => {
+        const picker = document.currentScript.previousElementSibling;
+        const button = picker.querySelector(".theme-picker__button");
+        const menu = picker.querySelector(".theme-picker__menu");
+        const options = picker.querySelectorAll(".theme-picker__option");
+
+        const markActive = () => {
+            const current = document.documentElement.dataset.theme;
+            options.forEach((o) => {
+                o.setAttribute(
+                    "aria-checked",
+                    o.dataset.themeKey === current ? "true" : "false",
+                );
+            });
+        };
+
+        const openMenu = (open) => {
+            menu.hidden = !open;
+            button.setAttribute("aria-expanded", open ? "true" : "false");
+        };
+
+        button.addEventListener("click", (e) => {
+            e.stopPropagation();
+            openMenu(menu.hidden);
+            markActive();
+        });
+
+        options.forEach((o) => {
+            o.addEventListener("click", () => {
+                const key = o.dataset.themeKey;
+                document.documentElement.dataset.theme = key;
+                try {
+                    localStorage.setItem("theme", key);
+                } catch (e) {}
+                markActive();
+                openMenu(false);
+            });
+        });
+
+        // Close on outside click or Escape.
+        document.addEventListener("click", (e) => {
+            if (!picker.contains(e.target)) openMenu(false);
+        });
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") openMenu(false);
+        });
+
+        markActive();
+    })();
+</script>

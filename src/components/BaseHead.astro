@@ -17,6 +17,31 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="color-scheme" content="light dark" />
+
+<!-- Apply the saved (or system) theme before paint to avoid a flash. -->
+<script is:inline>
+	(() => {
+		const THEMES = [
+			"gruvbox-light",
+			"gruvbox-dark",
+			"catppuccin",
+			"tokyonight",
+			"kanagawa",
+		];
+		let theme;
+		try {
+			theme = localStorage.getItem("theme");
+		} catch (e) {}
+		if (!THEMES.includes(theme)) {
+			const prefersDark = window.matchMedia(
+				"(prefers-color-scheme: dark)",
+			).matches;
+			theme = prefersDark ? "gruvbox-dark" : "gruvbox-light";
+		}
+		document.documentElement.dataset.theme = theme;
+	})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link

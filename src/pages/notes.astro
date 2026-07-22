@@ -3,6 +3,7 @@ import BaseHead from "../components/BaseHead.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection, render } from "astro:content";
 import FormattedDate from "../components/FormattedDate.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
 
 const notes = (await getCollection("notes")).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -22,6 +23,7 @@ const rendered = await Promise.all(
         />
     </head>
     <body>
+        <ThemeToggle />
         <main>
             <a href="/" class="back">&larr; Rajesh Jha</a>
             <h1>Notes</h1>
@@ -47,13 +49,13 @@ const rendered = await Promise.all(
             }
             .entry {
                 padding: 1.6em 0;
-                border-bottom: 1px solid #e5e0d8;
+                border-bottom: 1px solid var(--border);
             }
             .entry:last-child {
                 border-bottom: none;
             }
             .meta {
-                color: #777;
+                color: var(--muted);
                 font-size: 0.85em;
                 margin-bottom: 0.6em;
             }

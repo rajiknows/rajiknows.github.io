@@ -1,5 +1,6 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 ---
 
@@ -12,6 +13,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
         />
     </head>
     <body>
+        <ThemeToggle />
         <main>
             <a href="/" class="back">&larr; Rajesh Jha</a>
             <h1>Contact</h1>

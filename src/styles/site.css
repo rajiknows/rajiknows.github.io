@@ -1,14 +1,216 @@
 :root {
     --width: 46em;
     --font-main: "EB Garamond", Georgia, "Times New Roman", serif;
-    --background: #fffef9;
-    --text-color: #232333;
-    --accent: #6a3fb5;
-    --code-background: #f2f2f2;
+}
+
+/* ---- Themes ------------------------------------------------------------
+   One block per theme, selected by the `data-theme` attribute on <html>.
+   The no-flash script in BaseHead sets it before paint. Only gruvbox has a
+   light variant; the rest are dark.
+   Keep the theme keys in sync with THEMES in ThemeToggle.astro and the
+   shiki `themes` map in astro.config.mjs.                                 */
+
+html[data-theme="gruvbox-light"] {
+    --background: #fbf1c7;
+    --text-color: #3c3836;
+    --accent: #b16286;
+    --code-background: #f2e5bc;
+    --muted: #7c6f64;
+    --muted-strong: #504945;
+    --border: #ebdbb2;
+    --quote-border: #d5c4a1;
+    color-scheme: light;
+}
+
+html[data-theme="gruvbox-dark"] {
+    --background: #282828;
+    --text-color: #ebdbb2;
+    --accent: #d3869b;
+    --code-background: #3c3836;
+    --muted: #928374;
+    --muted-strong: #a89984;
+    --border: #3c3836;
+    --quote-border: #504945;
+    color-scheme: dark;
+}
+
+html[data-theme="catppuccin"] {
+    /* Catppuccin Mocha */
+    --background: #1e1e2e;
+    --text-color: #cdd6f4;
+    --accent: #cba6f7;
+    --code-background: #313244;
+    --muted: #7f849c;
+    --muted-strong: #a6adc8;
+    --border: #45475a;
+    --quote-border: #585b70;
+    color-scheme: dark;
+}
+
+html[data-theme="tokyonight"] {
+    /* Tokyo Night */
+    --background: #1a1b26;
+    --text-color: #c0caf5;
+    --accent: #bb9af7;
+    --code-background: #24283b;
+    --muted: #565f89;
+    --muted-strong: #a9b1d6;
+    --border: #2f3549;
+    --quote-border: #3b4261;
+    color-scheme: dark;
+}
+
+html[data-theme="kanagawa"] {
+    /* Kanagawa Wave */
+    --background: #1f1f28;
+    --text-color: #dcd7ba;
+    --accent: #957fb8;
+    --code-background: #2a2a37;
+    --muted: #727169;
+    --muted-strong: #c8c093;
+    --border: #363646;
+    --quote-border: #54546d;
+    color-scheme: dark;
 }
 
 * {
     box-sizing: border-box;
+}
+
+/* Shiki multi-theme (defaultColor:false) — each theme emits its own
+   --shiki-<key> vars per token; we pick the active one by data-theme. */
+.astro-code,
+.astro-code span {
+    color: var(--shiki-gruvbox-dark);
+    font-style: var(--shiki-gruvbox-dark-font-style);
+    font-weight: var(--shiki-gruvbox-dark-font-weight);
+    text-decoration: var(--shiki-gruvbox-dark-text-decoration);
+}
+html[data-theme="gruvbox-light"] .astro-code,
+html[data-theme="gruvbox-light"] .astro-code span {
+    color: var(--shiki-gruvbox-light);
+    font-style: var(--shiki-gruvbox-light-font-style);
+    font-weight: var(--shiki-gruvbox-light-font-weight);
+    text-decoration: var(--shiki-gruvbox-light-text-decoration);
+}
+html[data-theme="catppuccin"] .astro-code,
+html[data-theme="catppuccin"] .astro-code span {
+    color: var(--shiki-catppuccin);
+    font-style: var(--shiki-catppuccin-font-style);
+    font-weight: var(--shiki-catppuccin-font-weight);
+    text-decoration: var(--shiki-catppuccin-text-decoration);
+}
+html[data-theme="tokyonight"] .astro-code,
+html[data-theme="tokyonight"] .astro-code span {
+    color: var(--shiki-tokyonight);
+    font-style: var(--shiki-tokyonight-font-style);
+    font-weight: var(--shiki-tokyonight-font-weight);
+    text-decoration: var(--shiki-tokyonight-text-decoration);
+}
+html[data-theme="kanagawa"] .astro-code,
+html[data-theme="kanagawa"] .astro-code span {
+    color: var(--shiki-kanagawa);
+    font-style: var(--shiki-kanagawa-font-style);
+    font-weight: var(--shiki-kanagawa-font-weight);
+    text-decoration: var(--shiki-kanagawa-text-decoration);
+}
+
+/* ---- Theme picker (fixed, top-right on every page) --------------------- */
+.theme-picker {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 50;
+}
+
+.theme-picker__button {
+    width: 2.4rem;
+    height: 2.4rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--background);
+    color: var(--text-color);
+    cursor: pointer;
+    line-height: 1;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    transition:
+        background 0.15s ease,
+        color 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.theme-picker__button:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+
+.theme-picker__button svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    display: block;
+}
+
+.theme-picker__menu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    min-width: 11rem;
+    margin: 0;
+    padding: 0.35rem;
+    list-style: none;
+    border: 1px solid var(--border);
+    border-radius: 0.6rem;
+    background: var(--background);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+    font-size: 0.85rem;
+}
+
+.theme-picker__menu[hidden] {
+    display: none;
+}
+
+.theme-picker__option {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.45rem 0.6rem;
+    border: none;
+    border-radius: 0.4rem;
+    background: none;
+    color: var(--text-color);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.theme-picker__option:hover {
+    background: var(--code-background);
+}
+
+.theme-picker__option[aria-checked="true"] {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.theme-picker__swatch {
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 999px;
+    flex: none;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+}
+
+@media (max-width: 600px) {
+    .theme-picker {
+        top: 0.6rem;
+        right: 0.6rem;
+    }
 }
 
 body {
@@ -46,13 +248,13 @@ a:hover {
 
 a.back {
     border-bottom: none;
-    color: #666;
+    color: var(--muted);
     font-size: 0.9em;
 }
 
 a.back:hover {
     background: none;
-    color: #111;
+    color: var(--text-color);
 }
 
 @media (max-width: 600px) {
